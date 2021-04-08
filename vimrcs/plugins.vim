@@ -5,7 +5,6 @@ Plug 'dense-analysis/ale'
   let g:ale_disable_lsp = 1
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -14,7 +13,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tlib_vim'
 Plug 'SirVer/ultisnips'
@@ -34,24 +32,27 @@ Plug 'voldikss/vim-floaterm'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-highlightedyank'
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'javascript.jsx', 'typescript'], 'do': 'make install' }
 Plug 'farmergreg/vim-lastplace'
 Plug 'groenewege/vim-less'
 Plug 'natebosch/vim-lsc'
 Plug 'natebosch/vim-lsc-dart', { 'for': 'dart' }
 Plug 'andymass/vim-matchup'
-Plug 'crusoexia/vim-monokai'
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'machakann/vim-sandwich'
 Plug 'honza/vim-snippets'
 Plug 'mhinz/vim-startify'
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-vinegar'
 Plug 'maxbrunsfeld/vim-yankstack'
+
+" Color schemes
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'crusoexia/vim-monokai'
+Plug 'ghifarit53/sonokai'
 
 call plug#end()
 
