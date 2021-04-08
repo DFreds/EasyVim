@@ -1,13 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
-"       Amir Salihefendic — @amix3k
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
+"       Derek Fredrickson
 "
 " Sections:
 "    -> General
@@ -392,14 +385,19 @@ map <leader>s? z=
 " ==> Plugin configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" => vim-test
+" set the tests to run in the background. see the results with :cope or 
+" <leader>q
+let test#strategy = 'asyncrun_background'
+
 " => Nerd Tree
 " let g:NERDTreeWinPos = "right"
 " let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 " let g:NERDTreeWinSize=35
-let NERDTreeShowHidden=1
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark<Space>
-map <leader>nf :NERDTreeFind<cr>
+" let NERDTreeShowHidden=1
+" map <leader>nn :NERDTreeToggle<cr>
+" map <leader>nb :NERDTreeFromBookmark<Space>
+" map <leader>nf :NERDTreeFind<cr>
 
 
 " ==> BufExplorer
@@ -413,7 +411,7 @@ map <leader>o :BufExplorer<cr>
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
 let g:strip_whitespace_confirm=0
-let g:better_whitespace_filetypes_blacklist=['vim']
+let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'vim']
 
 " ==> lightline
 let g:lightline = {
@@ -736,16 +734,7 @@ endfunction
 " nmap <silent> t<C-s> :TestSuite<CR>
 " nmap <silent> t<C-l> :TestLast<CR>
 " nmap <silent> t<C-g> :TestVisit<CR>
-
-" let base16colorspace=256
-" let NERDTreeShowHidden=1
-
-"vim-test settings
-" let test#strategy = {
-"   \ 'nearest': 'neovim',
-"   \ 'file':    'asyncrun_background',
-"   \ 'suite':   'neovim',
-" \}
+"
 " autocmd FileType qf wincmd J
 " augroup test
 "   autocmd!
