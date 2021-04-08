@@ -49,6 +49,7 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
 Plug 'ghifarit53/sonokai'
+Plug 'joshdick/onedark.vim'
 
 " Language support
 Plug 'groenewege/vim-less'
