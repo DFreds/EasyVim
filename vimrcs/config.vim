@@ -400,8 +400,8 @@ nmap <silent> <leader>a :A<CR>
 nmap <silent> <leader>va :AV<CR>
 
 " ==> EasyMotion
-" s{char}{char} to move to {char}{char}
-nmap <leader>s <Plug>(easymotion-overwin-f2)
+" m{char}{char} to move to {char}{char}
+nmap <leader>m <Plug>(easymotion-overwin-f2)
 " Move to word
 map <leader><leader><leader> <Plug>(easymotion-bd-w)
 nmap <leader><leader><leader> <Plug>(easymotion-overwin-w)
@@ -474,6 +474,13 @@ map <leader>H :bprevious<cr>
 " Remap indenting
 nnoremap > >>_
 nnoremap < <<_
+
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
 
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
