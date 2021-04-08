@@ -1,6 +1,7 @@
 call plug#begin('~/.vim_runtime/plugged')
 
 Plug 'mileszs/ack.vim'
+Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
@@ -28,6 +29,8 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'javascript.jsx', 'typescript'], 'do': 'make install' }
 Plug 'farmergreg/vim-lastplace'
 Plug 'groenewege/vim-less'
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart', { 'for': 'dart' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'andymass/vim-matchup'
 Plug 'sickill/vim-monokai'
