@@ -34,7 +34,6 @@ Plug 'natebosch/vim-lsc'
 Plug 'natebosch/vim-lsc-dart', { 'for': 'dart' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'andymass/vim-matchup'
-" Plug 'sickill/vim-monokai'
 Plug 'crusoexia/vim-monokai'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rails'
