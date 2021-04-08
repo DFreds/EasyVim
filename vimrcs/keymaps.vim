@@ -17,6 +17,7 @@ map <leader>Y "+y
 map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
+map <leader>bo :BufOnly<cr>
 
 " Easy way to navigate between buffers. Pairs well with vim-buftabline
 noremap > :bnext<cr>
@@ -150,6 +151,27 @@ tmap <c-o> <c-\><c-n><esc><cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Don't close window when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt() 
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
+
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
+endfunction
+
 function! CmdLine(str)
     call feedkeys(":" . a:str)
 endfunction
