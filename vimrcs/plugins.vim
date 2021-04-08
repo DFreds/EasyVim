@@ -4,7 +4,6 @@ Plug 'mileszs/ack.vim'
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
-Plug 'jlanzarotta/bufexplorer'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -13,8 +12,8 @@ Plug 'yggdroot/indentline'
 Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
-Plug 'majutsushi/tagbar' " Install universal ctags to use tagbar: brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 Plug 'tomtom/tlib_vim'
+Plug 'SirVer/ultisnips'
 Plug 'mbbill/undotree'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
