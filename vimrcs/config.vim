@@ -377,7 +377,6 @@ nnoremap <leader>ct :let @*=expand("%:t")<CR>
 " directory name (/something/src)
 nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
 
-iab xdate <C-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -593,6 +592,10 @@ nmap <C-n> <Plug>yankstack_substitute_newer_paste
 nmap <leader>z :Goyo<cr>
 
 
+" ==> Undotree 
+nnoremap <leader>ut :UndotreeToggle<CR>
+
+
 " ==> COC
 let g:coc_global_extensions = [
       \ 'coc-css',
@@ -700,6 +703,7 @@ end
 map <leader>pp :setlocal paste!<cr>
 
 nnoremap <leader>q :call ToggleQuickFix()<cr>
+nnoremap <leader>un :call NewUuid()<CR>
 
 function! ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
@@ -709,6 +713,10 @@ function! ToggleQuickFix()
     endif
 endfunction
 
+function! NewUuid()
+  let l:prefix = '@uuid-'
+  call CmdLine("r !uuidgen|sed \'s/.*/" . l:prefix . "&/\'|tr \"[A-Z]\" \"[a-z]\"")
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
