@@ -1,7 +1,7 @@
 let g:lightline = {
       \ 'colorscheme': 'sonokai',
       \ 'active': {
-      \   'left': [ ['mode', 'paste'],
+      \   'left': [ ['mode', 'paste', 'spell'],
       \             ['fugitive' ],
       \             [ 'relativefilepath', 'readonly', 'modified', 'cocstatus' ] ],
       \   'right': [ ['lineinfo' ],
