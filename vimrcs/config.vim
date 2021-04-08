@@ -172,11 +172,9 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
+syntax on
 
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
+set termguicolors
 
 try
     colorscheme monokai
@@ -283,10 +281,10 @@ let g:loaded_matchit = 1
 " This setting makes EasyMotion work similarly to Vim's smartcase option for global searches.
 let g:EasyMotion_smartcase = 1
 
-" => vim-test
+" => vim-test - change to dispatch to run async in quickfix
 let test#strategy = {
   \ 'nearest': 'neovim',
-  \ 'file':    'dispatch',
+  \ 'file':    'neovim',
   \ 'suite':   'neovim',
 \}
 
@@ -388,6 +386,8 @@ let g:coc_snippet_next = '<tab>'
 " => Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:floaterm_keymap_toggle = '<leader>ft'
+
+nnoremap <silent> <F6> :call ToggleDarkLight()<CR>
 
 nmap <leader>tn :TestNearest<CR>
 nmap <leader>tf :TestFile<CR>
@@ -531,7 +531,7 @@ nnoremap <silent> <leader>gw :silent execute "Ag " . expand("<cword>")<cr>
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gb :Git blame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Gpush<CR>
 
@@ -614,6 +614,20 @@ nmap <leader>rn <Plug>(coc-rename)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Initially set it to "dark" or "light" according to your default
+let s:mybg = "dark"
+function! ToggleDarkLight()
+    if (s:mybg ==? "light")
+       set background=dark
+       colorscheme monokai
+       let s:mybg = "dark"
+    else
+       set background=light
+       colorscheme PaperColor
+       let s:mybg = "light"
+    endif
+endfunction
+
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -624,6 +638,7 @@ endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
+
 function! <SID>BufcloseCloseIt()
     let l:currentBufNum = bufnr("%")
     let l:alternateBufNum = bufnr("#")
