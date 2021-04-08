@@ -50,6 +50,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
 Plug 'ghifarit53/sonokai'
 Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
 
 " Language support
 Plug 'groenewege/vim-less'
