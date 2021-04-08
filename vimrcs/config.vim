@@ -6,7 +6,7 @@
 "    -> General
 "    -> VIM user interface
 "    -> Colors and Fonts
-"    -> Files and backups
+"    -> Files, backups, and undo
 "    -> Text, tab and indent related
 "    -> Visual mode related
 "    -> Moving around, tabs and buffers
@@ -38,6 +38,13 @@ au FocusGained,BufEnter * checktime
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
+
+" Use ; to enter command mode instead of :
+nnoremap ; :
+vnoremap ; :
+
+" Disable Ex mode
+nnoremap Q <nop>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -244,6 +251,10 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
+" Remap indenting
+nnoremap > >>_
+nnoremap < <<_
+
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -253,16 +264,16 @@ set wrap "Wrap lines
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
+" Re-select blocks after indenting
+xnoremap < <gv
+xnoremap > >gv|
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <C-space> ?
 
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+" Clear current search highlight by double tapping //
+nmap <silent> // :nohlsearch<CR>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -280,21 +291,20 @@ map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
-
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-
+nmap <leader>TN :tabnew<cr>
+nmap <leader>TO :tabonly<cr>
+nmap <leader>TC :tabclose<cr>
+nmap <leader>TM :tabmove
+nmap <leader>T<leader> :tabnext
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
+map <leader>TE :tabedit <C-r>=expand("%:p:h")<cr>/
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <leader>TL :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -366,6 +376,16 @@ inoremap $4 {<esc>o}<esc>O
 inoremap $q ''<esc>i
 inoremap $e ""<esc>i
 
+" Copy current file name (relative/absolute) to system clipboard
+" relative path  (src/foo.txt)
+nnoremap <leader>cf :let @*=expand("%")<CR>
+" absolute path  (/something/src/foo.txt)
+nnoremap <leader>cF :let @*=expand("%:p")<CR>
+" filename       (foo.txt)
+nnoremap <leader>ct :let @*=expand("%:t")<CR>
+" directory name (/something/src)
+nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
+
 iab xdate <C-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -384,20 +404,38 @@ map <leader>s? z=
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ==> Plugin configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => match-up
+let g:loaded_matchit = 1
 
 " => vim-test
-" set the tests to run in the background. see the results with :cope or 
-" <leader>q
+" set the tests strategy. set to async_background to run with async, where results will be displayed in the quickfix menu
 let test#strategy = {
   \ 'nearest': 'neovim',
   \ 'file':    'neovim',
   \ 'suite':   'neovim',
 \}
-nmap <leader>nt :TestNearest<CR>
-nmap <leader>nf :TestFile<CR>
-nmap <leader>ns :TestSuite<CR>
+nmap <leader>tn :TestNearest<CR>
+nmap <leader>tf :TestFile<CR>
+nmap <leader>ts :TestSuite<CR>
 " nmap <silent> t<C-l> :TestLast<CR>
 " nmap <silent> t<C-g> :TestVisit<CR>
+
+" ==> Tabularize
+" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+" https://gist.github.com/tpope/287147
+" If you put this in your vimrc file, then it will call the :Tabularize command each time you insert a | character.
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
 
 " ==> BufExplorer
 let g:bufExplorerDefaultHelp=0
@@ -533,6 +571,7 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
 let g:UltiSnipsExpandTrigger="<nop>"
 let g:ulti_expand_or_jump_res = 0
+
 function! <SID>ExpandSnippetOrReturn()
   let snippet = UltiSnips#ExpandSnippetOrJump()
   if g:ulti_expand_or_jump_res > 0
@@ -541,6 +580,7 @@ function! <SID>ExpandSnippetOrReturn()
     return "\<CR>"
   endif
 endfunction
+
 inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
 
@@ -549,6 +589,7 @@ nmap <leader>z :Goyo<cr>
 
 
 " ==> COC
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -606,33 +647,8 @@ end
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
-
-" http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-" https://gist.github.com/tpope/287147
-" If you put this in your vimrc file, then it will call the :Tabularize command each time you insert a | character.
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
 
 nnoremap <leader>q :call ToggleQuickFix()<cr>
 
