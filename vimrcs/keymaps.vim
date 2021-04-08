@@ -141,8 +141,6 @@ xnoremap <leader>I <gv
 xnoremap <expr> N  'nN'[v:searchforward]
 xnoremap <expr> n  'Nn'[v:searchforward]
 
-xmap <cr> <plug>(LiveEasyAlign)
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Terminal Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
