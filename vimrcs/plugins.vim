@@ -2,6 +2,7 @@ call plug#begin('~/.vim_runtime/plugged')
 
 Plug 'mileszs/ack.vim'
 Plug 'dense-analysis/ale'
+  let g:ale_disable_lsp = 1
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
@@ -11,8 +12,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'yggdroot/indentline'
-Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tlib_vim'

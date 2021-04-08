@@ -4,7 +4,10 @@ let g:lightline = {
       \   'left': [ ['mode', 'paste'],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
       \             ['fugitive', 'readonly', 'relativefilepath', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'], ['fileformat', 'fileencoding'] ]
+      \   'right': [ ['lineinfo' ],
+      \              ['percent'], 
+      \              ['fileformat', 'fileencoding'],
+      \              [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ] ]
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
@@ -22,6 +25,23 @@ let g:lightline = {
       \ },
       \ 'separator': { 'left': ' ', 'right': ' ' },
       \ 'subseparator': { 'left': ' ', 'right': ' ' }
+      \ }
+
+" Configuration for lightline-ale
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
       \ }
 
 " Thanks to this https://github.com/itchyny/lightline.vim/issues/293#issuecomment-373710096
