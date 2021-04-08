@@ -10,11 +10,13 @@ map <silent> <leader>t :BTags<cr>
 " Quickly jump between lines in the open buffer
 map <silent> <leader>l :BLines<cr>
 " mnemonic 'File Grep'
-nnoremap <leader>fg :Ag<space>
+nnoremap <leader>fg :Ag<CR>
 " mnemonic 'File History'
 nnoremap <silent> <leader>fh :History<CR>
 " mnemonic 'File Search'
 nnoremap <silent> <leader>fs :Files<CR>
+" mnemonic 'File Commits'
+nnoremap <silent> <leader>fc :BCommits<CR>
 " mnemonic 'Search History'
 nnoremap <silent> <leader>sh :History/<CR>
 " mnemonic 'Command History'
