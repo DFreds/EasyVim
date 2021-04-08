@@ -17,6 +17,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tlib_vim'
 Plug 'SirVer/ultisnips'
+  let g:UltiSnipsExpandTrigger="<C-W>m" " dummy to just disable <tab>
 Plug 'mbbill/undotree'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
