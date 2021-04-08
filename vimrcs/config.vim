@@ -11,7 +11,6 @@
 "    -> Visual mode related
 "    -> Moving around, tabs and buffers
 "    -> Autocmd
-"    -> Plugin configuration
 "    -> Keymaps
 "    -> Helper functions
 "
@@ -35,7 +34,7 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
-au FocusGained,BufEnter * checktime
+autocmd FocusGained,BufEnter * checktime
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -227,22 +226,17 @@ endif
 " line numbers
 set number
 
-set ruler
-
 " Linebreak on 500 characters
 set lbr
 set tw=500
 
-set nowrap "Don't wrap lines
+"Don't wrap lines
+set nowrap 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-au TabLeave * let g:lasttab = tabpagenr()
-
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen
@@ -251,7 +245,7 @@ catch
 endtry
 
 " Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -262,402 +256,20 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
-if has("autocmd")
-  " Clean extra spaces before save
-  autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+" Clean extra spaces before save
+autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 
-  " Make sure that enter is never overriden in the quickfix window
-  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+" Make sure that enter is never overriden in the quickfix window
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
-  " Highlight the symbol and its references when holding the cursor.
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ==> Plugin configuration
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => match-up
-let g:loaded_matchit = 1
-
-" This setting makes EasyMotion work similarly to Vim's smartcase option for global searches.
-let g:EasyMotion_smartcase = 1
-
-" => vim-test - change to dispatch to run async in quickfix
-let test#strategy = {
-  \ 'nearest': 'neovim',
-  \ 'file':    'neovim',
-  \ 'suite':   'neovim',
-\}
-" Keep test output open by pressing Ctrl-O instead of default combination
-if has('nvim')
-  tmap <C-o> <C-\><C-n>
-endif
-
-" ==> vim-startify
-let g:startify_session_persistence = 1
-let g:startify_session_number = 10
-let g:startify_session_sort = 1
-let g:startify_session_dir = '~/.vim/sessions'
-
-let g:startify_lists = [
-        \ { 'type': 'files',     'header': ['   MRU']            },
-        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-        \ { 'type': 'sessions',  'header': ['   Sessions']       },
-        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-        \ { 'type': 'commands',  'header': ['   Commands']       },
-        \ ]
-
-        " \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
-        " \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
-" ==> better whitespace
-let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=1
-let g:strip_whitespace_confirm=0
-let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'vim']
-
-" ==> lightline
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ ['mode', 'paste'],
-	    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
-      \             ['fugitive', 'readonly', 'relativefilepath', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'], ['fileformat', 'fileencoding'] ]
-      \ },
-      \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
-      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-      \   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
-      \ },
-      \ 'component_function': {
-      \   'relativefilepath': 'LightlineFilename',
-	    \   'cocstatus': 'coc#status'
-      \ },
-      \ 'component_visible_condition': {
-      \   'readonly': '(&filetype!="help"&& &readonly)',
-      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      \   'fugitive': '(exists("*FugitiveHead") && ""!=FugitiveHead())'
-      \ },
-      \ 'separator': { 'left': ' ', 'right': ' ' },
-      \ 'subseparator': { 'left': ' ', 'right': ' ' }
-      \ }
-
-" ==> ALE
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-
-let g:ale_ruby_rubocop_executable = 'bundle'
-
-let g:ale_linters = {'javascript': ['eslint', 'tsserver']}
-let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'remove_trailing_lines'],
-                    \'ruby': ['rubocop', 'remove_trailing_lines'],
-                    \'markdown': ['prettier', 'remove_trailing_lines']}
-
-
-" ==> FZF
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-
-" ==> Ack searching and cope displaying
-" Requires ack.vim - it's much better than vimgrep/grep
-
-" Use the the_silver_searcher if possible (much faster than Ack)
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case'
-endif
-
-" ==> YankStack
-let g:yankstack_yank_keys = ['y', 'd']
-
-" ==> COC
-let g:coc_global_extensions = [
-      \ 'coc-css',
-      \ 'coc-dictionary',
-      \ 'coc-flutter',
-      \ 'coc-git',
-      \ 'coc-highlight',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-snippets',
-      \ 'coc-solargraph',
-      \ 'coc-syntax',
-      \ 'coc-tag',
-      \ 'coc-tsserver',
-      \ 'coc-vimlsp',
-      \ 'coc-yaml',
-      \ ]
-
-" Use :CocConfig to test configs with auto-completion, then port them here
-let g:coc_user_config = {
-      \ 'solargraph.checkGemVersion': 0,
-      \ 'solargraph.promptDownload': 0,
-      \ 'solargraph.useBundler': 'true',
-      \ 'snippets.extends': {
-      \   'javascriptreact': ['javascript'],
-      \   'gitcommit_markdown': ['gitcommit']
-      \ }
-      \ }
-
-" coc-snippets
-let g:coc_snippet_next = '<tab>'
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Keymaps
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:floaterm_keymap_toggle = '<leader>ft'
-
-nnoremap <silent> <F6> :call ToggleDarkLight()<CR>
-
-nmap <leader>tn :TestNearest<CR>
-nmap <leader>tf :TestFile<CR>
-nmap <leader>ts :TestSuite<CR>
-nmap <leader>tl :TestLast<CR>
-nmap <leader>tv :TestVisit<CR>
-
-" ==> vim-projectionist
-nmap <silent> <leader>a :A<CR>
-nmap <silent> <leader>va :AV<CR>
-
-" ==> EasyMotion
-" m{char}{char} to move to {char}{char}
-nmap <leader>m <Plug>(easymotion-overwin-f2)
-" Move to word
-map <leader><leader><leader> <Plug>(easymotion-bd-w)
-nmap <leader><leader><leader> <Plug>(easymotion-overwin-w)
-
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-" Map auto complete of (, ", ', [
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a`<esc>`<i`<esc>
-inoremap $1 ()<esc>i
-inoremap $2 []<esc>i
-inoremap $3 {}<esc>i
-inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
-
-" Copy current file name (relative/absolute) to system clipboard
-" relative path  (src/foo.txt)
-nnoremap <leader>cf :let @*=expand("%")<CR>
-" absolute path  (/something/src/foo.txt)
-nnoremap <leader>cF :let @*=expand("%:p")<CR>
-" filename       (foo.txt)
-nnoremap <leader>ct :let @*=expand("%:t")<CR>
-" directory name (/something/src)
-nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
-
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Clear current search highlight by double tapping //
-nmap <silent> // :nohlsearch<CR>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-map > :bnext<cr>
-map < :bprevious<cr>
-
-" Useful mappings for managing tabs - I don't use these, so commented out
-" nmap <leader>TN :tabnew<cr>
-" nmap <leader>TO :tabonly<cr>
-" nmap <leader>TC :tabclose<cr>
-" nmap <leader>TM :tabmove
-" nmap <leader>T<leader> :tabnext
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-" map <leader>TE :tabedit <C-r>=expand("%:p:h")<cr>/
-" nmap <leader>TL :exe "tabn ".g:lasttab<CR>
-
-" Remap indenting
-nnoremap <leader>i >>_
-nnoremap <leader>I <<_
-
-" Re-select blocks after indenting
-xnoremap <leader>i >gv|
-xnoremap <leader>I <gv
-
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-K> <C-U>
-
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-
-" Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
-" Use ; to enter command mode instead of :
-nnoremap ; :
-vnoremap ; :
-
-" Disable Ex mode
-nnoremap Q <nop>
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" Copying to OS clipboard
-map <leader>y "*y
-map <leader>Y "+y
-
-" If you put this in your vimrc file, then it will call the :Tabularize command each time you insert a | character.
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
-" Map movement through errors with wrapping around the file.
-nmap <silent> <leader>ap <Plug>(ale_previous_wrap)
-nmap <silent> <leader>an <Plug>(ale_next_wrap)
-
-" Quickly find and open a file in the current working directory
-map <silent> <leader>j :GFiles<cr>
-" Quickly jump to previously opened file
-map <silent> <leader>o :Buffers<cr>
-" Quickly jump between tags in the open buffer. Requires ctags
-map <silent> <leader>t :BTags<cr>
-" Quickly jump between lines in the open buffer
-map <silent> <leader>l :BLines<cr>
-" mnemonic 'File Grep'
-nnoremap <leader>fg :Ag<space>
-" mnemonic 'File History'
-nnoremap <silent> <leader>fh :History<CR>
-" mnemonic 'File Search'
-nnoremap <silent> <leader>fs :Files<CR>
-" mnemonic 'Search History'
-nnoremap <silent> <leader>sh :History/<CR>
-" mnemonic 'Command History'
-nnoremap <silent> <leader>ch :History:<CR>
-
-" Grep the word under cursor
-nnoremap <silent> <leader>gw :silent execute "Ag " . expand("<cword>")<cr>
-
-
-" ==> Fugitive
-nnoremap <silent> <leader>gs :Git<CR>
-nnoremap <silent> <leader>gd :Git diff<CR>
-nnoremap <silent> <leader>gr :Git rebase -i<CR>
-nnoremap <silent> <leader>gc :Git commit<CR>
-nnoremap <silent> <leader>gb :Git blame<CR>
-nnoremap <silent> <leader>gl :Git log<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-
-" When you press gv you Ack after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ack and put the cursor in the right position - "File Grep"
-" map <leader>fg :Ack<space>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
-" Open or close QuickFix
-nnoremap <leader>q :call ToggleQuickFix()<cr>
-
-nmap <C-p> <Plug>yankstack_substitute_older_paste
-nmap <C-n> <Plug>yankstack_substitute_newer_paste
-
-nmap <leader>z :Goyo<cr>
-
-nnoremap <leader>ut :UndotreeToggle<CR>
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" inoremap <silent><expr> <CR>
-"       \ pumvisible() ? coc#_select_confirm() :
-"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ <SID>check_back_space() ? "\<CR>" :
-"       \ coc#refresh()
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-nnoremap <leader>un :call NewUuid()<CR>
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Initially set it to "dark" or "light" according to your default
-let s:mybg = "dark"
-function! ToggleDarkLight()
-    if (s:mybg ==? "light")
-       set background=dark
-       colorscheme monokai
-       let s:mybg = "dark"
-    else
-       set background=light
-       colorscheme PaperColor
-       let s:mybg = "light"
-    endif
-endfunction
 
 " Returns true if paste mode is enabled
 function! HasPaste()
@@ -693,34 +305,6 @@ function! CmdLine(str)
     call feedkeys(":" . a:str)
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
-
 " Thanks to this https://github.com/itchyny/lightline.vim/issues/293#issuecomment-373710096
 function! LightlineFilename()
   let root = fnamemodify(get(b:, 'git_dir'), ':h')
@@ -736,23 +320,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-function! ToggleQuickFix()
-    if empty(filter(getwininfo(), 'v:val.quickfix'))
-        copen
-    else
-        cclose
-    endif
-endfunction
 
 function! NewUuid()
   let l:prefix = '@uuid-'

@@ -1,0 +1,185 @@
+" NOTE: Use fzf.vim :Maps command to search for any keymaps
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Copying to OS clipboard
+map <leader>y "*y
+map <leader>Y "+y
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+map > :bnext<cr>
+map < :bprevious<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+" Toggle spell checking on and off
+map <leader>ss :setlocal spell!<cr>
+" Navigate to next and previous spelling error
+map <leader>sn ]s
+map <leader>sp [s
+" Add misspelled word under cursor to dictionary
+map <leader>sa zg
+" Get suggestions for spelling
+map <leader>s? z=
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Do :help cope if you are unsure what cope is. It's super useful!
+"
+" To go to the next search result do:
+"   <leader>n
+"
+" To go to the previous search results do:
+"   <leader>p
+"
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Command Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Insert Mode Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map auto complete of (, ", ', [
+inoremap $1 ()<esc>i
+inoremap $2 []<esc>i
+inoremap $3 {}<esc>i
+inoremap $4 {<esc>o}<esc>O
+inoremap $q ''<esc>i
+inoremap $e ""<esc>i
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Normal Mode Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Clear current search highlight by double tapping //
+nmap <silent> // :nohlsearch<CR>
+
+" Use ; to enter command mode instead of :
+nnoremap ; :
+
+" Remap indenting
+nnoremap <leader>i >>_
+nnoremap <leader>I <<_
+
+" Disable Ex mode
+nnoremap Q <nop>
+
+" Open or close QuickFix
+nnoremap <leader>q :call ToggleQuickFix()<cr>
+
+" Generate a UUID
+nnoremap <leader>un :call NewUuid()<CR>
+
+" Switch between light and dark mode
+nnoremap <silent> <F6> :call ToggleDarkLight()<CR>
+
+" Copy current file name (relative/absolute) to system clipboard
+" relative path  (src/foo.txt)
+nnoremap <leader>cf :let @*=expand("%")<CR>
+" absolute path  (/something/src/foo.txt)
+nnoremap <leader>cF :let @*=expand("%:p")<CR>
+" filename       (foo.txt)
+nnoremap <leader>ct :let @*=expand("%:t")<CR>
+" directory name (/something/src)
+nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Select/Visual Mode Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use ; to enter command mode instead of :
+vnoremap ; :
+
+" Map auto complete of (, ", ', [
+vnoremap $1 <esc>`>a)<esc>`<i(<esc>
+vnoremap $2 <esc>`>a]<esc>`<i[<esc>
+vnoremap $3 <esc>`>a}<esc>`<i{<esc>
+vnoremap $$ <esc>`>a"<esc>`<i"<esc>
+vnoremap $q <esc>`>a'<esc>`<i'<esc>
+vnoremap $e <esc>`>a`<esc>`<i`<esc>
+
+" Visual mode pressing * or # searches for the current selection
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" When you press gv you Ack after the selected text
+vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+
+" Re-select blocks after indenting
+xnoremap <leader>i >gv|
+xnoremap <leader>I <gv
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Terminal Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+tmap <C-o> <C-\><C-n>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper Functions 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Initially set it to "dark" or "light" according to your default
+let s:mybg = "dark"
+function! ToggleDarkLight()
+    if (s:mybg ==? "light")
+       set background=dark
+       colorscheme monokai
+       let s:mybg = "dark"
+    else
+       set background=light
+       colorscheme PaperColor
+       let s:mybg = "light"
+    endif
+endfunction
+
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
