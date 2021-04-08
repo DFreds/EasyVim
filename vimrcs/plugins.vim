@@ -7,6 +7,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/goyo.vim'
 Plug 'yggdroot/indentline'
 Plug 'maximbaz/lightline-ale'
