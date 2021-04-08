@@ -167,7 +167,7 @@ function! ToggleDarkLight()
        colorscheme monokai
        let s:mybg = "dark"
 
-       let g:lightline.colorscheme = 'monokai'
+       let g:lightline.colorscheme = 'sonokai'
        call lightline#init()
        call lightline#colorscheme()
     else

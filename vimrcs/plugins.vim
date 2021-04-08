@@ -15,8 +15,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tlib_vim'
-Plug 'SirVer/ultisnips'
-  let g:UltiSnipsExpandTrigger="<C-W>m" " dummy to just disable <tab>
 Plug 'mbbill/undotree'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
@@ -32,18 +30,16 @@ Plug 'voldikss/vim-floaterm'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-highlightedyank'
-Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'javascript.jsx', 'typescript'], 'do': 'make install' }
 Plug 'farmergreg/vim-lastplace'
-Plug 'groenewege/vim-less'
-Plug 'natebosch/vim-lsc'
-Plug 'natebosch/vim-lsc-dart', { 'for': 'dart' }
 Plug 'andymass/vim-matchup'
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'machakann/vim-sandwich'
-Plug 'honza/vim-snippets'
+Plug 'psliwka/vim-smoothie'
+  let g:smoothie_update_interval = 10
+  let g:smoothie_speed_constant_factor = 30
+  let g:smoothie_speed_linear_factor = 30
 Plug 'mhinz/vim-startify'
 Plug 'vim-test/vim-test'
 Plug 'tpope/vim-vinegar'
@@ -53,6 +49,18 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'crusoexia/vim-monokai'
 Plug 'ghifarit53/sonokai'
+
+" Language support
+Plug 'groenewege/vim-less'
+Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'javascript.jsx', 'typescript'], 'do': 'make install' }
+Plug 'natebosch/vim-lsc'
+Plug 'natebosch/vim-lsc-dart', { 'for': 'dart' }
+Plug 'sheerun/vim-polyglot'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+  let g:UltiSnipsExpandTrigger="<C-W>m" " dummy to just disable <tab>
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
