@@ -290,13 +290,6 @@ let test#strategy = {
   \ 'suite':   'neovim',
 \}
 
-" ==> BufExplorer
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerFindActive=1
-let g:bufExplorerSortBy='name'
-map <leader>o :BufExplorer<cr>
-
 " ==> better whitespace
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
@@ -461,22 +454,22 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
+map <leader>L :bnext<cr>
+map <leader>H :bprevious<cr>
 
-" Useful mappings for managing tabs
-nmap <leader>TN :tabnew<cr>
-nmap <leader>TO :tabonly<cr>
-nmap <leader>TC :tabclose<cr>
-nmap <leader>TM :tabmove
-nmap <leader>T<leader> :tabnext
+" Useful mappings for managing tabs - I don't use these, so commented out
+" nmap <leader>TN :tabnew<cr>
+" nmap <leader>TO :tabonly<cr>
+" nmap <leader>TC :tabclose<cr>
+" nmap <leader>TM :tabmove
+" nmap <leader>T<leader> :tabnext
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>TE :tabedit <C-r>=expand("%:p:h")<cr>/
-nmap <leader>TL :exe "tabn ".g:lasttab<CR>
+" map <leader>TE :tabedit <C-r>=expand("%:p:h")<cr>/
+" nmap <leader>TL :exe "tabn ".g:lasttab<CR>
 
 " Remap indenting
 nnoremap > >>_
@@ -513,12 +506,22 @@ nmap <silent> <leader>an <Plug>(ale_next_wrap)
 
 " Quickly find and open a file in the current working directory
 map <silent> <leader>j :GFiles<cr>
+" Quickly jump to previously opened file
+map <silent> <leader>o :Buffers<cr>
+" Quickly jump between tags in the open buffer. Requires ctags
+map <silent> <leader>t :BTags<cr>
+" Quickly jump between lines in the open buffer
+map <silent> <leader>l :BLines<cr>
 " mnemonic 'File Grep'
 nnoremap <leader>fg :Ag<space>
 " mnemonic 'File History'
 nnoremap <silent> <leader>fh :History<CR>
 " mnemonic 'File Search'
 nnoremap <silent> <leader>fs :Files<CR>
+" mnemonic 'Search History'
+nnoremap <silent> <leader>sh :History/<CR>
+" mnemonic 'Command History'
+nnoremap <silent> <leader>ch :History:<CR>
 
 " Grep the word under cursor
 nnoremap <silent> <leader>gw :silent execute "Ag " . expand("<cword>")<cr>
@@ -551,7 +554,8 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 "
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
-nmap <leader>tt :TagbarToggle<CR>
+
+" Open or close QuickFix
 nnoremap <leader>q :call ToggleQuickFix()<cr>
 
 nmap <C-p> <Plug>yankstack_substitute_older_paste
