@@ -8,6 +8,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/goyo.vim'
+Plug 'yggdroot/indentline'
 Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/lightline.vim'
 " Plug 'preservim/nerdtree'
