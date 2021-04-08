@@ -407,6 +407,23 @@ map <leader>s? z=
 " => match-up
 let g:loaded_matchit = 1
 
+
+" => vim-projectionist
+nmap <silent> <leader>a :A<CR>
+nmap <silent> <leader>va :AV<CR>
+
+
+" ==> EasyMotion
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to word
+map <leader><leader><leader> <Plug>(easymotion-bd-w)
+nmap <leader><leader><leader> <Plug>(easymotion-overwin-w)
+
+" This setting makes EasyMotion work similarly to Vim's smartcase option for global searches.
+let g:EasyMotion_smartcase = 1
+
 " => vim-test
 " set the tests strategy. set to async_background to run with async, where results will be displayed in the quickfix menu
 let test#strategy = {
@@ -419,6 +436,7 @@ nmap <leader>tf :TestFile<CR>
 nmap <leader>ts :TestSuite<CR>
 " nmap <silent> t<C-l> :TestLast<CR>
 " nmap <silent> t<C-g> :TestVisit<CR>
+
 
 " ==> Tabularize
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
@@ -498,13 +516,34 @@ let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'remove_trailing_lines'
                     \'markdown': ['prettier', 'remove_trailing_lines']}
 
 " Map movement through errors with wrapping around the file.
-nmap <silent> <Leader>ap <Plug>(ale_previous_wrap)
-nmap <silent> <Leader>an <Plug>(ale_next_wrap)
+nmap <silent> <leader>ap <Plug>(ale_previous_wrap)
+nmap <silent> <leader>an <Plug>(ale_next_wrap)
 
 
 " ==> FZF
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
 " Quickly find and open a file in the current working directory
 map <silent> <leader>j :GFiles<cr>
+" mnemonic 'File Grep'
+nnoremap <leader>fg :Ag<space>
+" mnemonic 'File History'
+nnoremap <silent> <leader>fh :History<CR>
+" mnemonic 'File Search'
+nnoremap <silent> <leader>fs :Files<CR>
+
+" Grep the word under cursor
+nnoremap <silent> <leader>gw :silent execute "Ag " . expand("<cword>")<cr>
+
+
+" ==> Fugitive
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Gpush<CR>
 
 
 " ==> Ack searching and cope displaying
@@ -518,8 +557,8 @@ endif
 " When you press gv you Ack after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
-" Open Ack and put the cursor in the right position
-map <leader>g :Ack 
+" Open Ack and put the cursor in the right position - "File Grep"
+" map <leader>fg :Ack 
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
