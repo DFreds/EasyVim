@@ -388,17 +388,16 @@ map <leader>s? z=
 " => vim-test
 " set the tests to run in the background. see the results with :cope or 
 " <leader>q
-let test#strategy = 'asyncrun_background'
-
-" => Nerd Tree
-" let g:NERDTreeWinPos = "right"
-" let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-" let g:NERDTreeWinSize=35
-" let NERDTreeShowHidden=1
-" map <leader>nn :NERDTreeToggle<cr>
-" map <leader>nb :NERDTreeFromBookmark<Space>
-" map <leader>nf :NERDTreeFind<cr>
-
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'neovim',
+  \ 'suite':   'neovim',
+\}
+nmap <leader>nt :TestNearest<CR>
+nmap <leader>nf :TestFile<CR>
+nmap <leader>ns :TestSuite<CR>
+" nmap <silent> t<C-l> :TestLast<CR>
+" nmap <silent> t<C-g> :TestVisit<CR>
 
 " ==> BufExplorer
 let g:bufExplorerDefaultHelp=0
@@ -699,42 +698,6 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-" Functions for debugging jest and cucumber
-function! JestDebugNearest()
-  let g:test#javascript#runner = 'jest'
-  let g:test#javascript#jest#executable = './node_modules/.bin/ndb node_modules/jest/bin/jest.js --runInBand'
-  TestNearest
-  unlet g:test#javascript#runner
-  unlet g:test#javascript#jest#executable
-endfunction
-
-function! CucumberRecordNearest()
-  let g:test#javascript#runner = 'cucumberjs'
-  let g:test#javascript#cucumberjs#executable = './node_modules/.bin/cucumber-js'
-  let $RECORD = "true"
-  TestNearest
-  unlet $RECORD
-  unlet g:test#javascript#runner
-  unlet g:test#javascript#cucumberjs#executable
-endfunction
-
-function! CucumberDebugRecordNearest()
-  let g:test#javascript#runner = 'cucumberjs'
-  let g:test#javascript#cucumberjs#executable = './node_modules/.bin/ndb node_modules/.bin/cucumber.js'
-  let $RECORD = "true"
-  TestNearest
-  unlet $RECORD
-  unlet g:test#javascript#runner
-  unlet g:test#javascript#cucumberjs#executable
-endfunction
-
-" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
-" nmap <silent> t<C-n> :TestNearest<CR>
-" nmap <silent> t<C-f> :TestFile<CR>
-" nmap <silent> t<C-s> :TestSuite<CR>
-" nmap <silent> t<C-l> :TestLast<CR>
-" nmap <silent> t<C-g> :TestVisit<CR>
-"
 " autocmd FileType qf wincmd J
 " augroup test
 "   autocmd!
