@@ -2,7 +2,7 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-	    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
       \             ['fugitive', 'readonly', 'relativefilepath', 'modified'] ],
       \   'right': [ [ 'lineinfo' ], ['percent'], ['fileformat', 'fileencoding'] ]
       \ },
@@ -13,7 +13,7 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'relativefilepath': 'LightlineFilename',
-	    \   'cocstatus': 'coc#status'
+      \   'cocstatus': 'coc#status'
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
