@@ -602,9 +602,6 @@ nmap <C-p> <Plug>yankstack_substitute_older_paste
 nmap <C-n> <Plug>yankstack_substitute_newer_paste
 
 
-" ==> UltiSnips
-
-
 " ==> Goyo
 nmap <leader>z :Goyo<cr>
 
@@ -634,11 +631,7 @@ let g:coc_user_config = {
       \ 'snippets.extends': {
       \   'javascriptreact': ['javascript'],
       \   'gitcommit_markdown': ['gitcommit']
-      \ },
-      \ 'snippets.ultisnips.directories': [
-      \   '~/.config/nvim/UltiSnips',
-      \   'UltiSnips'
-      \ ]
+      \ }
       \ }
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -649,8 +642,6 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <CR>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -705,19 +696,6 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
