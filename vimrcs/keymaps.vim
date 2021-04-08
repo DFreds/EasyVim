@@ -145,6 +145,15 @@ tmap <C-o> <C-\><C-n>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunction
+
+function! NewUuid()
+  let l:prefix = '@uuid-'
+  call CmdLine("r !uuidgen|sed \'s/.*/" . l:prefix . "&/\'|tr \"[A-Z]\" \"[a-z]\"")
+endfunction
+
 " Initially set it to "dark" or "light" according to your default
 let s:mybg = "dark"
 function! ToggleDarkLight()
