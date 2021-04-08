@@ -490,11 +490,16 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
+let g:ale_ruby_rubocop_executable = 'bundle'
+
 let g:ale_linters = {'javascript': ['eslint', 'tsserver']}
 let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'remove_trailing_lines'],
                     \'ruby': ['rubocop', 'remove_trailing_lines'],
                     \'markdown': ['prettier', 'remove_trailing_lines']}
-nmap <silent> <leader>a <Plug>(ale_next_wrap)
+
+" Map movement through errors with wrapping around the file.
+nmap <silent> <Leader>ap <Plug>(ale_previous_wrap)
+nmap <silent> <Leader>an <Plug>(ale_next_wrap)
 
 
 " ==> FZF
