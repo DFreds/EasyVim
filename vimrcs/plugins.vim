@@ -8,6 +8,7 @@ Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'rhysd/git-messenger.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'yggdroot/indentline'
 Plug 'maximbaz/lightline-ale'

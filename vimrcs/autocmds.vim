@@ -26,7 +26,7 @@ autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
 autocmd FileType javascript setl fen
 autocmd FileType javascript setl nocindent
 
-" Delete trailing white space on save, useful for some filetypes ;)
+" Delete trailing whitespace on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
