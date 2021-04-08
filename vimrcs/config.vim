@@ -528,12 +528,13 @@ nnoremap <silent> <leader>gw :silent execute "Ag " . expand("<cword>")<cr>
 
 
 " ==> Fugitive
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gs :Git<CR>
+nnoremap <silent> <leader>gd :Git diff<CR>
+nnoremap <silent> <leader>gr :Git rebase -i<CR>
+nnoremap <silent> <leader>gc :Git commit<CR>
 nnoremap <silent> <leader>gb :Git blame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Gpush<CR>
+nnoremap <silent> <leader>gl :Git log<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
 
 " When you press gv you Ack after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
