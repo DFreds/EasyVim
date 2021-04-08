@@ -4,7 +4,7 @@ temp_dirs/yankring_history_v2.txt
 plugged/*
 
 vimrcs/my_plugins.vim
-vimrcs/my_configs.vim
+vimrcs/my_config.vim
 
 tags
 .DS_Store
