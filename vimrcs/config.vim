@@ -152,6 +152,7 @@ set foldcolumn=1
 set foldmethod=manual
 set nofoldenable
 
+" Enable the sign column for use by gitgutter
 set signcolumn=yes
 
 
@@ -167,7 +168,6 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    " let g:solarized_termcolors=256
     colorscheme monokai
 catch
 endtry
@@ -230,9 +230,9 @@ set tabstop=2
 set shiftwidth=2
 
 " Display ruler at 80 characters
-" if exists('+colorcolumn')
-"   set colorcolumn=80
-" endif
+if exists('+colorcolumn')
+  set colorcolumn=80
+endif
 
 " line numbers
 set number
@@ -498,7 +498,9 @@ map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
 " Make sure that enter is never overriden in the quickfix window
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+if has("autocmd")
+    autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+endif
 
 
 " ==> Floaterm
@@ -564,7 +566,9 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+if has("autocmd")
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+endif
 
 " let g:coc_snippet_next = '<tab>'
 " let g:coc_user_config = {
@@ -581,7 +585,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Omni complete functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+if has("autocmd")
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+end
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
