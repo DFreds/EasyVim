@@ -71,6 +71,9 @@ endtry
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
+" We use lightline to show the modes
+set noshowmode
+
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en'
 set langmenu=en
@@ -305,7 +308,7 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
-  set switchbuf=useopen,usetab,newtab
+  set switchbuf=useopen
   set stal=2
 catch
 endtry
@@ -391,9 +394,9 @@ map <leader>s? z=
 
 " => Nerd Tree
 " let g:NERDTreeWinPos = "right"
-" let NERDTreeShowHidden=0
 " let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 " let g:NERDTreeWinSize=35
+let NERDTreeShowHidden=1
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
@@ -417,13 +420,16 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+      \             ['fugitive', 'readonly', 'relativefilepath', 'modified'] ],
       \   'right': [ [ 'lineinfo' ], ['percent'] ]
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
       \   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
+      \ },
+      \ 'component_function': {
+      \   'relativefilepath': 'LightlineFilename'
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
@@ -433,6 +439,16 @@ let g:lightline = {
       \ 'separator': { 'left': ' ', 'right': ' ' },
       \ 'subseparator': { 'left': ' ', 'right': ' ' }
       \ }
+
+" Thanks to this https://github.com/itchyny/lightline.vim/issues/293#issuecomment-373710096
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 " ==> ALE
 let g:ale_fix_on_save = 1
