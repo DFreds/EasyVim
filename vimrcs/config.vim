@@ -578,7 +578,11 @@ endif
 
 
 " ==> Floaterm
- let g:floaterm_keymap_toggle = '<leader>tt'
+ let g:floaterm_keymap_toggle = '<leader>ft'
+
+
+" ==> Tagbar
+ nmap <leader>tt :TagbarToggle<CR>
 
 
 " ==> YankStack

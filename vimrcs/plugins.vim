@@ -12,6 +12,8 @@ Plug 'yggdroot/indentline'
 Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
+" Install universal ctags to use tagbar: brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+Plug 'majutsushi/tagbar'
 Plug 'tomtom/tlib_vim'
 Plug 'mbbill/undotree'
 Plug 'MarcWeber/vim-addon-mw-utils'
