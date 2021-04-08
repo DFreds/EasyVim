@@ -107,7 +107,28 @@ nnoremap <leader>cF :let @*=expand("%:p")<CR>
 " filename       (foo.txt)
 nnoremap <leader>ct :let @*=expand("%:t")<CR>
 " directory name (/something/src)
-nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
+" nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
+ 
+" Make n always search forward and N backward
+nnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> N  'nN'[v:searchforward]
+
+" Quick way to move the current line above or below:
+" These mappings also take a count, so 2]e moves the current line 2 lines below.
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+
+" Quickly add empty lines
+" 5[<space> inserts 5 blank lines above the current line.
+nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
+nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Operator Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make n always search forward and N backward
+onoremap <expr> n  'Nn'[v:searchforward]
+onoremap <expr> N  'nN'[v:searchforward]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Select/Visual Mode Keymaps
@@ -136,6 +157,10 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 " Re-select blocks after indenting
 xnoremap <leader>i >gv|
 xnoremap <leader>I <gv
+
+" Make n always search forward and N backward
+xnoremap <expr> N  'nN'[v:searchforward]
+xnoremap <expr> n  'Nn'[v:searchforward]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Terminal Keymaps

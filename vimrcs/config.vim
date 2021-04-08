@@ -1,117 +1,91 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer:
 "       Derek Fredrickson
-"
-" Sections:
-"    -> General
-"    -> Indenting
-"    -> Searching
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Keymaps
-"    -> Helper functions
-"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
-set history=500
+let mapleader = ',' " Use , as the leader
+let g:netrw_fastbrowse=0 " Fix issue with netrw keeping file paths open as buffers
 
-" Hide buffers instead of closing them
-set hidden
+filetype plugin indent on  " Load plugins according to detected filetype.
+syntax on                  " Enable syntax highlighting.
+syntax enable                  " Enable syntax highlighting.
 
-" Fix issue with netrw keeping file paths open as buffers
-let g:netrw_fastbrowse=0
+set autoindent             " Indent according to previous line.
+set expandtab              " Use spaces instead of tabs.
+set softtabstop=2         " Tab key indents by 4 spaces.
+set shiftwidth=2         " >> indents by 4 spaces.
+set smartindent " Be smart about indenting
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
+set guioptions-=L " Disable left-hand scrollbar when there is a vertical window
+set guioptions-=R " Disable right-hand scrollbar when there is a vertical window
+set guioptions-=T " Disable toolbar for Win32 GUI
+set guioptions-=e " Disable tab pages
+set guioptions-=l " Disable left-hand scrollbar
+set guioptions-=r " Disable right-hand scrollbar
 
-" Set to auto read when a file is changed from the outside
-set autoread
+set number " Include line numbers
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
+set so=7 " Set 7 lines to the cursor - when moving vertically using j/k
 
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+set backspace=indent,eol,start  " Make backspace work as you would expect.
+set hidden                 " Switch between buffers without having to save first.
+set display=lastline  " Show as much as possible of the last line.
 
-" Turn persistent undo on, means that you can undo even when you close a buffer/VIM
-try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
-    set undofile
-catch
-endtry
+set noshowmode " We use lightline to show the modes
+set showcmd                " Show already typed keys when more are expected.
 
-" Turn backup off, since most stuff is in SVN, git etc. anyway...
-set nobackup
-set nowritebackup
-set nowb
-set noswapfile
+set incsearch              " Highlight while searching with / or ?.
+set hlsearch               " Keep matches highlighted.
+set ignorecase " Ignore case when searching
+set smartcase " Only ignore case if all letters are lowercase
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
+set shortmess+=c " Don't pass messages to |ins-completion-menu|.
 
+set lazyredraw             " Only redraw when necessary.
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Indenting
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set autoindent
+set splitbelow             " Open new windows below the current window.
+set splitright             " Open new windows right of the current window.
 
-" Use spaces instead of tabs
-set expandtab
+set cursorline             " Find the current line quickly.
+set wrapscan               " Searches wrap around end-of-file.
+set report=0    " Always report changed lines.
+set synmaxcol=200  " Only highlight the first 200 columns.
+set nowrap " Don't wrap lines
 
-" 1 tab == 2 spaces
-set tabstop=2
-set shiftwidth=2
-set smartindent
+set updatetime=300 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 
-" Be smart when using tabs ;)
-set smarttab
+set encoding=utf8 " Set utf8 as standard encoding
+set fileformats=unix,dos,mac " Use Unix as the standard file type
 
+set history=500  " Sets how many lines of history VIM has to remember
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Searching
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Highlight search results
-set hlsearch
+set switchbuf=useopen " Use open buffer when switching between files if it is already open
 
-" Ignore case when searching
-set ignorecase
+set timeoutlen=500 " Timeout in ms to wait for a command sequence to complete
 
-" Makes search act like search in modern browsers
-set incsearch
+set list                   " Show non-printable characters.
 
-" When searching try to be smart about cases
-set smartcase
+set cmdheight=2 " Make command-line bar slightly larger
+set foldcolumn=1 " Add a bit extra margin to the left for folds
+set nofoldenable " turn off folding - manual folding is supportted
 
+set signcolumn=yes " Always enable the sign column
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+set undofile " Turn persistent undo on
+set undodir=~/.vim_runtime/temp_dirs/undodir " Save undo data here
 
-" We use lightline to show the modes
-set noshowmode
+set nowritebackup " Don't backup a file before writing it. Everything is usually in a VCS anyway
+set noswapfile " Don't create annoying .swp files
 
-" Prefer splitting to the right and below
-set splitright
-set splitbelow
+set termguicolors " Enable 24-bit RGB color in the TUI
+set background=dark " Dark mode is the only mode :P
+set colorcolumn=80 " Display ruler at 80 characters
 
-" Turn on the Wild menu
-set wildmenu
-set wildmode=list:longest,full
+set whichwrap+=h,l " Allow specified keys to go to previous/next line when at first/last character"
 
-" Ignore compiled files and git
-set wildignore=*.class,*.git,*.o,*~,*.pyc
+set wildmenu " Use command line completion menu on Tab
+set wildmode=list:longest,full " When more than one match, list all matches and complete till longest common string.
+set wildignore=*.class,*.git,*.o,*~,*.pyc " Ignore compiled files and git
 
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
@@ -119,144 +93,33 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
-"Always show current position
-set ruler
+if has('multi_byte') && &encoding ==# 'utf-8'
+  let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
+else
+  let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
+endif
 
-" Height of the command bar
-set cmdheight=2
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch
-
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-" turn off folding
-set foldmethod=manual
-set nofoldenable
-
-" Enable the sign column for use by gitgutter
-set signcolumn=yes
-
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
-syntax on
-
-set termguicolors
-
+" Default colorscheme is monokai
 try
     colorscheme monokai
 catch
 endtry
 
-set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
 " Set font according to system
 if has("mac") || has("macunix")
-    set gfn=IBM\ Plex\ Mono:h14,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+    set guifont=IBM\ Plex\ Mono:h14,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
 elseif has("win16") || has("win32")
-    set gfn=IBM\ Plex\ Mono:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+    set guifont=IBM\ Plex\ Mono:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
 elseif has("gui_gtk2")
-    set gfn=IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    set guifont=IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
 elseif has("linux")
-    set gfn=IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    set guifont=IBM\ Plex\ Mono\ 14,:Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
 elseif has("unix")
-    set gfn=Monospace\ 11
+    set guifont=Monospace\ 11
 endif
 
-" Disable scrollbars
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
-
-" Display ruler at 80 characters
-if exists('+colorcolumn')
-  set colorcolumn=80
-endif
-
-" line numbers
-set number
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-"Don't wrap lines
-set nowrap 
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen
-  set stal=2
-catch
-endtry
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-
+" Don't close window when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt() 
 function! <SID>BufcloseCloseIt()
     let l:currentBufNum = bufnr("%")
     let l:alternateBufNum = bufnr("#")
