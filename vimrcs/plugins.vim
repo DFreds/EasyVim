@@ -12,11 +12,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'yggdroot/indentline'
 Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/lightline.vim'
-" Plug 'preservim/nerdtree'
-Plug 'andymass/vim-matchup'
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tlib_vim'
-Plug 'SirVer/ultisnips'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-bundler'
@@ -29,6 +26,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'farmergreg/vim-lastplace'
 Plug 'groenewege/vim-less'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'andymass/vim-matchup'
 Plug 'sickill/vim-monokai'
 Plug 'kburdett/vim-nuuid'
 Plug 'tpope/vim-projectionist'
@@ -41,6 +39,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'maxbrunsfeld/vim-yankstack'
 
 call plug#end()
+
 "   call plug#begin('~/.vim/plugged')
 "
 "   " Make sure you use single quotes

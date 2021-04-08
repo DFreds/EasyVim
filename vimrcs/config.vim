@@ -27,6 +27,9 @@
 " Sets how many lines of history VIM has to remember
 set history=500
 
+" Hide buffers instead of closing them
+set hidden
+
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -215,6 +218,7 @@ set guioptions-=L
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
+set nowritebackup
 set nowb
 set noswapfile
 
@@ -473,6 +477,7 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
+	    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
       \             ['fugitive', 'readonly', 'relativefilepath', 'modified'] ],
       \   'right': [ [ 'lineinfo' ], ['percent'] ]
       \ },
@@ -482,7 +487,8 @@ let g:lightline = {
       \   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
       \ },
       \ 'component_function': {
-      \   'relativefilepath': 'LightlineFilename'
+      \   'relativefilepath': 'LightlineFilename',
+	    \   'cocstatus': 'coc#status'
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
@@ -597,22 +603,6 @@ nmap <C-n> <Plug>yankstack_substitute_newer_paste
 
 
 " ==> UltiSnips
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
-let g:UltiSnipsExpandTrigger="<nop>"
-let g:ulti_expand_or_jump_res = 0
-
-function! <SID>ExpandSnippetOrReturn()
-  let snippet = UltiSnips#ExpandSnippetOrJump()
-  if g:ulti_expand_or_jump_res > 0
-    return snippet
-  else
-    return "\<CR>"
-  endif
-endfunction
-
-inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
 
 " ==> Goyo
@@ -620,22 +610,71 @@ nmap <leader>z :Goyo<cr>
 
 
 " ==> COC
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:coc_global_extensions = [
+      \ 'coc-css',
+      \ 'coc-dictionary',
+      \ 'coc-git',
+      \ 'coc-highlight',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-snippets',
+      \ 'coc-solargraph',
+      \ 'coc-syntax',
+      \ 'coc-tag',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp',
+      \ 'coc-yaml',
+      \ ]
 
-" Use `lp` and `ln` for navigate diagnostics
-nmap <silent> <leader>lp <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>ln <Plug>(coc-diagnostic-next)
+" Use :CocConfig to test configs with auto-completion, then port them here
+let g:coc_user_config = {
+      \ 'solargraph.checkGemVersion': 0,
+      \ 'solargraph.promptDownload': 0,
+      \ 'solargraph.useBundler': 'true',
+      \ 'snippets.extends': {
+      \   'javascriptreact': ['javascript'],
+      \   'gitcommit_markdown': ['gitcommit']
+      \ },
+      \ 'snippets.ultisnips.directories': [
+      \   '~/.config/nvim/UltiSnips',
+      \   'UltiSnips'
+      \ ]
+      \ }
 
-" Remap keys for gotos
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<CR>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-" Remap for rename current word
-nmap <leader>lr <Plug>(coc-rename)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -650,28 +689,42 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
+" Highlight the symbol and its references when holding the cursor.
 if has("autocmd")
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-endif
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+end
 
-" let g:coc_snippet_next = '<tab>'
-" let g:coc_user_config = {
-"       \ 'snippets.extends': {
-"       \   'javascriptreact': ['javascript'],
-"       \   'gitcommit_markdown': ['gitcommit']
-"       \ },
-"       \ 'snippets.ultisnips.directories': [
-"       \   'UltiSnips'
-"       \ ]
-"       \ }
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" coc-snippets
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Omni complete functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("autocmd")
-    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 end
 
 
