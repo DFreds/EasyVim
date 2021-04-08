@@ -12,8 +12,7 @@ Plug 'yggdroot/indentline'
 Plug 'maximbaz/lightline-ale'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
-" Install universal ctags to use tagbar: brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar' " Install universal ctags to use tagbar: brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 Plug 'tomtom/tlib_vim'
 Plug 'mbbill/undotree'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -26,6 +25,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript', 'javascript.jsx', 'typescript'], 'do': 'make install' }
 Plug 'farmergreg/vim-lastplace'
 Plug 'groenewege/vim-less'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
