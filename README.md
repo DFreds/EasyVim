@@ -11,6 +11,7 @@ Note for Windows: You should use the Ubuntu installation available on the Window
    * [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim).
    * [NodeJs](https://nodejs.org/en/)
    * [ctags](https://ctags.io/)
+   * [Ack]() or [Ag]() or [Rg]()
 
 1. Next, clone this repo into ~/.vim_runtime and run the installation script like so:
 
