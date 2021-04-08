@@ -4,14 +4,22 @@ This is my personal configuration for Vim utilizing Neovim.
 
 ## Installation
 
-1. First, install [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim).
+Requirements: Installation of Neovim, NodeJs, and ctags
+Note for Windows: You should use the Ubuntu installation available on the Windows Store.
 
-1. Clone this repo into ~/.vim_runtime like so:
+1. First, you need to install the requirements.
+   * [Neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim).
+   * [NodeJs](https://nodejs.org/en/)
+   * [ctags](https://ctags.io/)
+
+1. Next, clone this repo into ~/.vim_runtime and run the installation script like so:
 
     ```bash
     git clone --depth=1 https://github.com/DFreds/EasyVim.git ~/.vim_runtime
     sh ~/.vim_runtime/install.sh
     ```
+
+   This will source everything into your .vimrc. For Neovim, you'll need to follow the instructions listed [here](https://neovim.io/doc/user/nvim.html) to ensure that Neovim sources your .vimrc file.
 
 1. Open up Neovim anywhere and install the plugins like so:
 
@@ -20,7 +28,7 @@ This is my personal configuration for Vim utilizing Neovim.
    :PlugInstall
    ```
 
-1. Close and reopen Neovim and run:
+1. Close and reopen Neovim and CocInstall should be run automatically. If it is not, you can run:
 
    ```vim
    :CocInstall
