@@ -392,8 +392,8 @@ nnoremap <silent> <F6> :call ToggleDarkLight()<CR>
 nmap <leader>tn :TestNearest<CR>
 nmap <leader>tf :TestFile<CR>
 nmap <leader>ts :TestSuite<CR>
-" nmap <silent> t<C-l> :TestLast<CR>
-" nmap <silent> t<C-g> :TestVisit<CR>
+nmap <leader>tl :TestLast<CR>
+nmap <leader>tv :TestVisit<CR>
 
 " ==> vim-projectionist
 nmap <silent> <leader>a :A<CR>
