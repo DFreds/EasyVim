@@ -18,6 +18,7 @@ map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
+" Easy way to navigate between buffers. Pairs well with vim-buftabline
 noremap > :bnext<cr>
 noremap < :bprevious<cr>
 
@@ -144,7 +145,7 @@ xnoremap <expr> n  'Nn'[v:searchforward]
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Terminal Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-tmap <esc> <c-\><c-n><esc><cr>
+tmap <c-o> <c-\><c-n><esc><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions 

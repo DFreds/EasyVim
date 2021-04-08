@@ -10,7 +10,7 @@ map <silent> <leader>t :BTags<cr>
 " Quickly jump between lines in the open buffer
 map <silent> <leader>l :BLines<cr>
 " mnemonic 'File Grep'
-nnoremap <leader>fg :Ag<CR>
+nnoremap <leader>fg :Rg<CR>
 " mnemonic 'File History'
 nnoremap <silent> <leader>fh :History<CR>
 " mnemonic 'File Search'
@@ -22,4 +22,4 @@ nnoremap <silent> <leader>sh :History/<CR>
 " mnemonic 'Command History'
 nnoremap <silent> <leader>ch :History:<CR>
 " Grep the word under cursor
-nnoremap <silent> <leader>gw :silent execute "Ag " . expand("<cword>")<cr>
+nnoremap <silent> <leader>gw :silent execute "Rg " . expand("<cword>")<cr>
