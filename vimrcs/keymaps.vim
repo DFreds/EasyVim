@@ -17,8 +17,9 @@ map <leader>Y "+y
 map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
-map > :bnext<cr>
-map < :bprevious<cr>
+
+noremap > :bnext<cr>
+noremap < :bprevious<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -63,19 +64,15 @@ cnoremap <C-N> <Down>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Insert Mode Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map auto complete of (, ", ', [
-inoremap $1 ()<esc>i
-inoremap $2 []<esc>i
-inoremap $3 {}<esc>i
-inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Normal Mode Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>w :update!<cr>
+
+" Fast saving and quitting
+nmap <leader>x :xit<cr>
 
 " Clear current search highlight by double tapping //
 nmap <silent> // :nohlsearch<CR>
@@ -99,16 +96,6 @@ nnoremap <leader>un :call NewUuid()<CR>
 " Switch between light and dark mode
 nnoremap <silent> <F6> :call ToggleDarkLight()<CR>
 
-" Copy current file name (relative/absolute) to system clipboard
-" relative path  (src/foo.txt)
-nnoremap <leader>cf :let @*=expand("%")<CR>
-" absolute path  (/something/src/foo.txt)
-nnoremap <leader>cF :let @*=expand("%:p")<CR>
-" filename       (foo.txt)
-nnoremap <leader>ct :let @*=expand("%:t")<CR>
-" directory name (/something/src)
-" nnoremap <leader>ch :let @*=expand("%:p:h")<CR>
- 
 " Make n always search forward and N backward
 nnoremap <expr> n  'Nn'[v:searchforward]
 nnoremap <expr> N  'nN'[v:searchforward]
@@ -136,14 +123,6 @@ onoremap <expr> N  'nN'[v:searchforward]
 " Use ; to enter command mode instead of :
 vnoremap ; :
 
-" Map auto complete of (, ", ', [
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a`<esc>`<i`<esc>
-
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
@@ -161,6 +140,8 @@ xnoremap <leader>I <gv
 " Make n always search forward and N backward
 xnoremap <expr> N  'nN'[v:searchforward]
 xnoremap <expr> n  'Nn'[v:searchforward]
+
+xmap <cr> <plug>(LiveEasyAlign)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Terminal Keymaps

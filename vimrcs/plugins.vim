@@ -24,6 +24,7 @@ Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
+Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-expand-region'
 Plug 'voldikss/vim-floaterm'
