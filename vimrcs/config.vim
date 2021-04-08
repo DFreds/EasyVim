@@ -99,9 +99,9 @@ else
   let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
 endif
 
-" Default colorscheme is monokai
+" Choose default colorscheme
 try
-    colorscheme monokai
+    colorscheme PaperColor
 catch
 endtry
 

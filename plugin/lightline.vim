@@ -1,5 +1,5 @@
 let g:lightline = {
-      \ 'colorscheme': 'sonokai',
+      \ 'colorscheme': 'PaperColor',
       \ 'active': {
       \   'left': [ ['mode', 'paste', 'spell'],
       \             ['fugitive' ],
