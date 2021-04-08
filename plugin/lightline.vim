@@ -2,8 +2,8 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
-      \             ['fugitive', 'readonly', 'relativefilepath', 'modified'] ],
+      \             ['fugitive' ],
+      \             [ 'relativefilepath', 'readonly', 'modified', 'cocstatus' ] ],
       \   'right': [ ['lineinfo' ],
       \              ['percent'], 
       \              ['fileformat', 'fileencoding'],
