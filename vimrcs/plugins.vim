@@ -5,6 +5,7 @@ Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
