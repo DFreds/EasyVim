@@ -102,6 +102,10 @@ set so=7
 " We use lightline to show the modes
 set noshowmode
 
+" Prefer splitting to the right and below
+set splitright
+set splitbelow
+
 " Turn on the Wild menu
 set wildmenu
 set wildmode=list:longest,full
@@ -123,9 +127,6 @@ set cmdheight=2
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
-" A buffer becomes hidden when it is abandoned
-set hid
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -361,6 +362,7 @@ let g:yankstack_yank_keys = ['y', 'd']
 let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-dictionary',
+      \ 'coc-flutter',
       \ 'coc-git',
       \ 'coc-highlight',
       \ 'coc-html',
@@ -563,11 +565,22 @@ nnoremap <leader>ut :UndotreeToggle<CR>
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <CR>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<CR>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <CR>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<CR>" :
+"       \ coc#refresh()
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
