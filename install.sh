@@ -10,11 +10,6 @@ source ~/.vim_runtime/vimrcs/config.vim
 source ~/.vim_runtime/vimrcs/filetypes.vim
 
 try
-source ~/.vim_runtime/vimrcs/my_plugins.vim
-catch
-endtry
-
-try
 source ~/.vim_runtime/vimrcs/my_config.vim
 catch
 endtry' > ~/.vimrc

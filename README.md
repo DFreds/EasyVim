@@ -93,11 +93,10 @@ The [leader](http://learnvimscriptthehardway.stevelosh.com/chapters/06.html#lead
 | F6         | Toggle between light and dark mode |
 | <leader>ft | Toggle floaterm                    |
 
-## Custom Plugins and Configuration
+## Custom Configuration
 
-This setup automatically supports adding your own plugins and configuration. To do so, create files under the vimrcs folder like so:
+This setup automatically supports adding your own configuration. To do so, create a file under the vimrcs folder like so:
 
-* ~/.vim_runtime/vimrcs/my_plugins.vim
 * ~/.vim_runtime/vimrcs/my_config.vim
 
-These are automatically sourced after following the installation steps above. From there, feel free to add any of your own configuration or plugins to the corresponding files, and they will be ignored by git.
+This is automatically sourced after following the installation steps above. From there, feel free to add any of your own configuration to the file, and it will be ignored by git.
