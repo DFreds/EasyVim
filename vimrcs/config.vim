@@ -295,6 +295,22 @@ if has('nvim')
   tmap <C-o> <C-\><C-n>
 endif
 
+" ==> vim-startify
+let g:startify_session_persistence = 1
+let g:startify_session_number = 10
+let g:startify_session_sort = 1
+let g:startify_session_dir = '~/.vim/sessions'
+
+let g:startify_lists = [
+        \ { 'type': 'files',     'header': ['   MRU']            },
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': 'sessions',  'header': ['   Sessions']       },
+        \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+        \ { 'type': 'commands',  'header': ['   Commands']       },
+        \ ]
+
+        " \ { 'type': function('s:gitUntracked'), 'header': ['   git untracked']},
+        " \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
 " ==> better whitespace
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=1
@@ -308,7 +324,7 @@ let g:lightline = {
       \   'left': [ ['mode', 'paste'],
 	    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ],
       \             ['fugitive', 'readonly', 'relativefilepath', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'] ]
+      \   'right': [ [ 'lineinfo' ], ['percent'], ['fileformat', 'fileencoding'] ]
       \ },
       \ 'component': {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
@@ -464,8 +480,8 @@ map <C-l> <C-W>l
 map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
-map <leader>L :bnext<cr>
-map <leader>H :bprevious<cr>
+map > :bnext<cr>
+map < :bprevious<cr>
 
 " Useful mappings for managing tabs - I don't use these, so commented out
 " nmap <leader>TN :tabnew<cr>
@@ -479,8 +495,12 @@ map <leader>H :bprevious<cr>
 " nmap <leader>TL :exe "tabn ".g:lasttab<CR>
 
 " Remap indenting
-nnoremap > >>_
-nnoremap < <<_
+nnoremap <leader>i >>_
+nnoremap <leader>I <<_
+
+" Re-select blocks after indenting
+xnoremap <leader>i >gv|
+xnoremap <leader>I <gv
 
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
@@ -492,10 +512,6 @@ cnoremap <C-N> <Down>
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
-" Re-select blocks after indenting
-xnoremap < <gv
-xnoremap > >gv|
 
 " Use ; to enter command mode instead of :
 nnoremap ; :
@@ -751,3 +767,27 @@ fun! CleanExtraSpaces()
     call setpos('.', save_cursor)
     call setreg('/', old_query)
 endfun
+
+" returns all modified files of the current git repo
+" `2>/dev/null` makes the command fail quietly, so that when we are not
+" in a git repo, the list will be empty
+" function! s:gitModified()
+"     let files = systemlist('git ls-files -m 2>/dev/null')
+"     return map(files, "{'line': v:val, 'path': v:val}")
+" endfunction
+
+" " same as above, but show untracked files, honouring .gitignore
+" function! s:gitUntracked()
+"     let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+"     return map(files, "{'line': v:val, 'path': v:val}")
+" endfunction
+
+function! GetUniqueSessionName()
+  let path = fnamemodify(getcwd(), ':~:t')
+  let path = empty(path) ? 'no-project' : path
+  let branch = FugitiveHead()
+  let branch = empty(branch) ? '' : '-' . branch
+  return substitute(path . branch, '/', '-', 'g')
+endfunction
+
+autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
