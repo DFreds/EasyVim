@@ -432,7 +432,7 @@ let g:EasyMotion_smartcase = 1
 " set the tests strategy. set to async_background to run with async, where results will be displayed in the quickfix menu
 let test#strategy = {
   \ 'nearest': 'neovim',
-  \ 'file':    'neovim',
+  \ 'file':    'dispatch',
   \ 'suite':   'neovim',
 \}
 nmap <leader>tn :TestNearest<CR>

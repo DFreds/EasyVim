@@ -2,7 +2,6 @@ call plug#begin('~/.vim_runtime/plugged')
 
 Plug 'mileszs/ack.vim'
 Plug 'dense-analysis/ale'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -18,6 +17,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'easymotion/vim-easymotion'
 Plug 'voldikss/vim-floaterm'
 Plug 'tpope/vim-fugitive'
