@@ -32,7 +32,6 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'groenewege/vim-less'
 Plug 'natebosch/vim-lsc'
 Plug 'natebosch/vim-lsc-dart', { 'for': 'dart' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'andymass/vim-matchup'
 Plug 'crusoexia/vim-monokai'
 Plug 'tpope/vim-projectionist'
