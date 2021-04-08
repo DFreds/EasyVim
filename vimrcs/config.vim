@@ -26,6 +26,9 @@ set history=500
 " Hide buffers instead of closing them
 set hidden
 
+" Fix issue with netrw keeping file paths open as buffers
+let g:netrw_fastbrowse=0
+
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -287,6 +290,10 @@ let test#strategy = {
   \ 'file':    'neovim',
   \ 'suite':   'neovim',
 \}
+" Keep test output open by pressing Ctrl-O instead of default combination
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
 
 " ==> better whitespace
 let g:better_whitespace_enabled=1
