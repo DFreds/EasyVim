@@ -22,6 +22,7 @@ Plug 'schickling/vim-bufonly'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
+Plug 'will133/vim-dirdiff'
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
 Plug 'easymotion/vim-easymotion'
