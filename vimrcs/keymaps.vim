@@ -36,9 +36,6 @@ map <leader>sa zg
 " Get suggestions for spelling
 map <leader>s? z=
 
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
