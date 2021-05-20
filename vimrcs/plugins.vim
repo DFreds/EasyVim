@@ -29,6 +29,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-expand-region'
 Plug 'voldikss/vim-floaterm'
   let g:floaterm_keymap_toggle = '<leader>ft'
+Plug 'thosakwe/vim-flutter', { 'for': 'dart' }
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-highlightedyank'
