@@ -74,7 +74,7 @@ nmap <leader>w :update!<cr>
 nmap <leader>x :xit<cr>
 
 " Clear current search highlight by double tapping //
-nmap <silent> // :nohlsearch<CR>
+nmap <silent> // :nohlsearch<cr>
 
 " Use ; to enter command mode instead of :
 nnoremap ; :
@@ -90,10 +90,10 @@ nnoremap Q <nop>
 nnoremap <leader>q :call ToggleQuickFix()<cr>
 
 " Generate a UUID
-nnoremap <leader>un :call NewUuid()<CR>
+nnoremap <leader>un :call NewUuid()<cr>
 
 " Switch between light and dark mode
-nnoremap <silent> <F6> :call ToggleDarkLight()<CR>
+nnoremap <silent> <F6> :call ToggleDarkLight()<cr>
 
 " Make n always search forward and N backward
 nnoremap <expr> n  'Nn'[v:searchforward]
@@ -109,6 +109,9 @@ nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
+" Toggle jumping between the beginning of the line and the first character
+nnoremap 0 :call HomeToggle()<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Operator Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -123,14 +126,14 @@ onoremap <expr> N  'nN'[v:searchforward]
 vnoremap ; :
 
 " Visual mode pressing * or # searches for the current selection
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<cr>/<C-R>=@/<cr><cr>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<cr>?<C-R>=@/<cr><cr>
 
 " When you press gv you Ack after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+vnoremap <silent> gv :call VisualSelection('gv', '')<cr>
 
 " When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<cr>
 
 " Re-select blocks after indenting
 xnoremap <leader>i >gv|
@@ -223,4 +226,12 @@ function! VisualSelection(direction, extra_filter) range
 
     let @/ = l:pattern
     let @" = l:saved_reg
+endfunction
+
+function HomeToggle()
+    if (col('.') == 1)
+        normal! ^
+    else
+        normal! 0
+    endif
 endfunction
