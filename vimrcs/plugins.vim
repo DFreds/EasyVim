@@ -4,6 +4,7 @@ Plug 'mileszs/ack.vim'
 Plug 'dense-analysis/ale'
   let g:ale_disable_lsp = 1
 Plug 'jiangmiao/auto-pairs'
+Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
