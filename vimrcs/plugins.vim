@@ -25,6 +25,7 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'will133/vim-dirdiff'
 Plug 'tpope/vim-dispatch'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-expand-region'
