@@ -2,7 +2,6 @@ call plug#begin('~/.vim_runtime/plugged')
 
 Plug 'mileszs/ack.vim'
 Plug 'dense-analysis/ale'
-  let g:ale_disable_lsp = 1
 Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -16,16 +15,14 @@ Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'godlygeek/tabular'
 Plug 'tomtom/tlib_vim'
-Plug 'mbbill/undotree'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'schickling/vim-bufonly'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
-Plug 'will133/vim-dirdiff'
+" Plug 'will133/vim-dirdiff' " Use as needed
 Plug 'tpope/vim-dispatch'
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-expand-region'
