@@ -1,6 +1,9 @@
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
+" Display preview to the right, toggle with ctrl-/
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+
 " Quickly find and open a file in the current working directory
 map <silent> <leader>j :GFiles<cr>
 " Quickly jump to previously opened file
