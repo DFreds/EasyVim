@@ -9,7 +9,7 @@ Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'rhysd/git-messenger.vim'
-Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -21,7 +21,7 @@ Plug 'schickling/vim-bufonly'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
-" Plug 'will133/vim-dirdiff' " Use as needed
+Plug 'will133/vim-dirdiff', {'on': 'DirDiff'}
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
 Plug 'easymotion/vim-easymotion'
