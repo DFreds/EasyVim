@@ -101,7 +101,7 @@ endif
 
 " Choose default colorscheme
 try
-    colorscheme PaperColor
+    colorscheme monokai
 catch
 endtry
 

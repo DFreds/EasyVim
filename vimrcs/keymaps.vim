@@ -186,7 +186,7 @@ let s:mybg = "dark"
 function! ToggleDarkLight()
     if (s:mybg ==? "light")
        set background=dark
-       " colorscheme monokai
+       colorscheme monokai
        let s:mybg = "dark"
 
        " let g:lightline.colorscheme = 'sonokai'
@@ -194,7 +194,7 @@ function! ToggleDarkLight()
        call lightline#colorscheme()
     else
        set background=light
-       " colorscheme PaperColor
+       colorscheme PaperColor
        let s:mybg = "light"
 
        " let g:lightline.colorscheme = 'PaperColor'
