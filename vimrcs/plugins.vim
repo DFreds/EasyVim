@@ -53,6 +53,7 @@ Plug 'crusoexia/vim-monokai'
 Plug 'ghifarit53/sonokai'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
+Plug 'flazz/vim-colorschemes'
 
 " Language support
 Plug 'groenewege/vim-less'
