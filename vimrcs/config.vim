@@ -3,7 +3,9 @@
 "       Derek Fredrickson
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let mapleader = ',' " Use , as the leader
+map <space> <nop>
+let mapleader="\<space>" " Use space as the leader
+
 let g:netrw_fastbrowse=0 " Fix issue with netrw keeping file paths open as buffers
 
 filetype plugin indent on  " Load plugins according to detected filetype.

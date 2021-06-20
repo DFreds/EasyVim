@@ -3,101 +3,15 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Copying to OS clipboard
-map <leader>y "*y
-map <leader>Y "+y
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-map <leader>bo :BufOnly<cr>
-
-" Easy way to navigate between buffers. Pairs well with vim-buftabline
-noremap > :bnext<cr>
-noremap < :bprevious<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-" Toggle spell checking on and off
-map <leader>ss :setlocal spell!<cr>
-" Navigate to next and previous spelling error
-map <leader>sn ]s
-map <leader>sp [s
-" Add misspelled word under cursor to dictionary
-map <leader>sa zg
-" Get suggestions for spelling
-map <leader>s? z=
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Command Keymaps
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-K> <C-U>
-
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Insert Mode Keymaps
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Normal Mode Keymaps
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fast saving
-nmap <leader>w :update!<cr>
-
-" Fast saving and quitting
-nmap <leader>x :xit<cr>
-
 " Clear current search highlight by double tapping //
-nmap <silent> // :nohlsearch<cr>
+nnoremap <silent> // :nohlsearch<cr>
 
 " Use ; to enter command mode instead of :
 nnoremap ; :
-
-" Remap indenting
-nnoremap <leader>i >>_
-nnoremap <leader>I <<_
+vnoremap ; :
 
 " Disable Ex mode
 nnoremap Q <nop>
-
-" Open or close QuickFix
-nnoremap <leader>q :call ToggleQuickFix()<cr>
-
-" Generate a UUID
-nnoremap <leader>un :call NewUuid()<cr>
-
-" Switch between light and dark mode
-nnoremap <silent> <F6> :call ToggleDarkLight()<cr>
-
-" Make n always search forward and N backward
-nnoremap <expr> n  'Nn'[v:searchforward]
-nnoremap <expr> N  'nN'[v:searchforward]
 
 " Quick way to move the current line above or below:
 " These mappings also take a count, so 2]e moves the current line 2 lines below.
@@ -110,20 +24,19 @@ nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 " Toggle jumping between the beginning of the line and the first character
-nnoremap 0 :call HomeToggle()<cr>
+nnoremap <silent> 0 :call HomeToggle()<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Operator Keymaps
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Make n always search forward and N backward
-onoremap <expr> n  'Nn'[v:searchforward]
-onoremap <expr> N  'nN'[v:searchforward]
+" Open or close QuickFix
+nnoremap <leader>q :call ToggleQuickFix()<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Select/Visual Mode Keymaps
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use ; to enter command mode instead of :
-vnoremap ; :
+" Generate a UUID
+nnoremap <leader>un :call NewUuid()<cr>
+
+" Switch between light and dark mode
+nnoremap <silent> <F6> :call ToggleDarkLight()<cr>
+
+" Toggle paste mode on and off
+noremap <leader>pp :setlocal paste!<cr>
 
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<cr>/<C-R>=@/<cr><cr>
@@ -132,21 +45,94 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<cr>?<C-R>=@/<cr><cr>
 " When you press gv you Ack after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<cr>
 
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fast saving
+nnoremap <leader>w :update!<cr>
 
-" Re-select blocks after indenting
+" Fast saving and quitting
+nnoremap <leader>x :xit<cr>
+
+" Remap indenting
+nnoremap <leader>i >>_
+nnoremap <leader>I <<_
+" Re-select blocks after indenting in visual mode
 xnoremap <leader>i >gv|
 xnoremap <leader>I <gv
 
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<cr>
+
+" Copying to OS clipboard
+if has('unnamedplus')
+  noremap <leader>y "+y
+  noremap <leader>p "+p
+else
+  noremap <leader>y "*y
+  noremap <leader>p "*p
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Movement Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Smart way to move between windows
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+
 " Make n always search forward and N backward
-xnoremap <expr> N  'nN'[v:searchforward]
-xnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> n 'Nn'[v:searchforward]
+nnoremap <expr> N 'nN'[v:searchforward]
+onoremap <expr> n 'Nn'[v:searchforward]
+onoremap <expr> N 'nN'[v:searchforward]
+xnoremap <expr> N 'nN'[v:searchforward]
+xnoremap <expr> n 'Nn'[v:searchforward]
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Buffer Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Close the current buffer
+noremap <leader>bd :Bclose<cr>
+
+" Close all the buffers
+noremap <leader>ba :bufdo bd<cr>
+
+" Close all but the current buffer
+noremap <leader>bo :BufOnly<cr>
+
+" Go to last buffer
+noremap <silent> <leader>bl :b#<cr>
+
+" Easy way to navigate between buffers. Pairs well with vim-buftabline
+noremap > :bnext<cr>
+noremap < :bprevious<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spelling Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle spell checking on and off
+noremap <leader>ss :setlocal spell!<cr>
+" Add misspelled word under cursor to dictionary
+noremap <leader>sa zg
+" Get suggestions for spelling
+noremap <leader>s? z=
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Command Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+
+cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Terminal Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-tmap <c-o> <c-\><c-n><esc><cr>
+tnoremap <c-o> <c-\><c-n><esc><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions 

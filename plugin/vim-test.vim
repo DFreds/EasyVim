@@ -5,6 +5,8 @@ let test#strategy = {
   \ 'suite':   'neovim',
 \}
 
+let g:test#echo_command = 0 
+
 nmap <leader>tn :TestNearest<CR>
 nmap <leader>tf :TestFile<CR>
 nmap <leader>ts :TestSuite<CR>
