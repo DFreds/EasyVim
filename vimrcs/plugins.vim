@@ -48,7 +48,7 @@ Plug 'maxbrunsfeld/vim-yankstack'
 
 " Color schemes
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'crusoexia/vim-monokai'
+Plug 'DFreds/vim-monokai'
 Plug 'ghifarit53/sonokai'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
