@@ -15,11 +15,16 @@ autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces(
 " Make sure that enter is never overriden in the quickfix window
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
+" Hide cursor line in non-actiive windows and while in insert mode
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
+
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
+" Save sessions automatically
 autocmd VimLeavePre * silent execute 'SSave! ' . GetUniqueSessionName()
 
 " JavaScript section
