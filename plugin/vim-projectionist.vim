@@ -1,2 +1,2 @@
-nmap <silent> <leader>a :A<CR>
-nmap <silent> <leader>va :AV<CR>
+nnoremap <silent> <leader>a :A<CR>
+nnoremap <silent> <leader>va :AV<CR>

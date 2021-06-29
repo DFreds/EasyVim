@@ -54,30 +54,29 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>rn <Plug>(coc-rename)
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gy <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Formatting selected code.
-xmap <leader>ff  <Plug>(coc-format-selected)
-nmap <leader>ff  <Plug>(coc-format-selected)
+xnoremap <leader>ff  <Plug>(coc-format-selected)
+nnoremap <leader>ff  <Plug>(coc-format-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-" nmap <leader>ac  <Plug>(coc-codeaction)
+" nnoremap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
+" nnoremap <leader>qf  <Plug>(coc-fix-current)
 
 " Mappings for CoCList
 " Show all diagnostics.

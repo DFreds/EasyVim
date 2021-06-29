@@ -11,5 +11,5 @@ let g:ale_fixers = {'javascript': ['prettier', 'eslint', 'remove_trailing_lines'
                     \'markdown': ['prettier', 'remove_trailing_lines']}
 
 " Map movement through errors with wrapping around the file.
-nmap <silent> <leader>ap <Plug>(ale_previous_wrap)
-nmap <silent> <leader>an <Plug>(ale_next_wrap)
+nnoremap <silent> <leader>ap <Plug>(ale_previous_wrap)
+nnoremap <silent> <leader>an <Plug>(ale_next_wrap)
