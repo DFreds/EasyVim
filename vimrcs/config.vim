@@ -8,11 +8,6 @@ let mapleader="\<space>" " Use space as the leader
 
 let g:netrw_fastbrowse=0 " Fix issue with netrw keeping file paths open as buffers
 
-filetype plugin indent on  " Load plugins according to detected filetype.
-syntax on                  " Enable syntax highlighting.
-syntax enable                  " Enable syntax highlighting.
-
-set autoindent             " Indent according to previous line.
 set expandtab              " Use spaces instead of tabs.
 set softtabstop=2         " Tab key indents by 4 spaces.
 set shiftwidth=2         " >> indents by 4 spaces.
@@ -29,15 +24,12 @@ set number " Include line numbers
 
 set so=7 " Set 7 lines to the cursor - when moving vertically using j/k
 
-set backspace=indent,eol,start  " Make backspace work as you would expect.
 set hidden                 " Switch between buffers without having to save first.
 set display=lastline  " Show as much as possible of the last line.
 
 set noshowmode " We use lightline to show the modes
 set showcmd                " Show already typed keys when more are expected.
 
-set incsearch              " Highlight while searching with / or ?.
-set hlsearch               " Keep matches highlighted.
 set ignorecase " Ignore case when searching
 set smartcase " Only ignore case if all letters are lowercase
 
@@ -56,7 +48,6 @@ set nowrap " Don't wrap lines
 
 set updatetime=300 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 
-set encoding=utf8 " Set utf8 as standard encoding
 set fileformats=unix,dos,mac " Use Unix as the standard file type
 
 set history=500  " Sets how many lines of history VIM has to remember
@@ -74,7 +65,6 @@ set nofoldenable " turn off folding - manual folding is supportted
 set signcolumn=yes " Always enable the sign column
 
 set undofile " Turn persistent undo on
-set undodir=~/.vim_runtime/temp_dirs/undodir " Save undo data here
 
 set nowritebackup " Don't backup a file before writing it. Everything is usually in a VCS anyway
 set noswapfile " Don't create annoying .swp files
@@ -85,7 +75,6 @@ set colorcolumn=80 " Display ruler at 80 characters
 
 set whichwrap+=h,l " Allow specified keys to go to previous/next line when at first/last character"
 
-set wildmenu " Use command line completion menu on Tab
 set wildmode=list:longest,full " When more than one match, list all matches and complete till longest common string.
 set wildignore=*.class,*.git,*.o,*~,*.pyc " Ignore compiled files and git
 
