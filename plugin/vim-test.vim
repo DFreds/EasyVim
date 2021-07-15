@@ -7,6 +7,8 @@ let test#strategy = {
 
 let g:test#echo_command = 0 
 
+let test#neovim#term_position = 'vert'
+
 nnoremap <leader>tn :TestNearest<CR>
 nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ts :TestSuite<CR>

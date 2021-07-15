@@ -2,6 +2,7 @@ call plug#begin('~/.vim_runtime/plugged')
 
 Plug 'mileszs/ack.vim'
 Plug 'dense-analysis/ale'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/clever-f.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }

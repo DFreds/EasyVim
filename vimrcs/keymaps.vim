@@ -27,7 +27,7 @@ nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 nnoremap <silent> 0 :call HomeToggle()<cr>
 
 " Open or close QuickFix
-nnoremap <leader>q :call ToggleQuickFix()<cr>
+nnoremap <leader>qq :call ToggleQuickFix()<cr>
 
 " Generate a UUID
 nnoremap <leader>un :call NewUuid()<cr>

@@ -24,5 +24,5 @@ nnoremap <silent> <leader>bc :BCommits<CR>
 nnoremap <silent> <leader>sh :History/<CR>
 " mnemonic 'Command History'
 nnoremap <silent> <leader>ch :History:<CR>
-" Grep the word under cursor - mnemonic 'Grep Worrd'
+" Grep the word under cursor - mnemonic 'Grep Word'
 nnoremap <silent> <leader>gw :silent execute "Rg " . expand("<cword>")<cr>
