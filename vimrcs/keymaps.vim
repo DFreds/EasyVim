@@ -55,11 +55,11 @@ nnoremap <leader>w :update!<cr>
 nnoremap <leader>x :xit<cr>
 
 " Remap indenting
-nnoremap <leader>i >>_
-nnoremap <leader>I <<_
+nnoremap > >>_
+nnoremap < <<_
 " Re-select blocks after indenting in visual mode
-xnoremap <leader>i >gv|
-xnoremap <leader>I <gv
+xnoremap > >gv|
+xnoremap < <gv
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<cr>
@@ -106,8 +106,8 @@ noremap <leader>bo :BufOnly<cr>
 noremap <silent> <leader>bl :b#<cr>
 
 " Easy way to navigate between buffers. Pairs well with vim-buftabline
-noremap > :bnext<cr>
-noremap < :bprevious<cr>
+noremap L :bnext<cr>
+noremap H :bprevious<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spelling Keymaps
