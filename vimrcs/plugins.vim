@@ -5,7 +5,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/clever-f.vim'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'rhysd/git-messenger.vim'
-Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'godlygeek/tabular'
@@ -14,7 +13,6 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'schickling/vim-bufonly'
 Plug 'ap/vim-buftabline'
-Plug 'tpope/vim-bundler'
 Plug 'will133/vim-dirdiff', {'on': 'DirDiff'}
 Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
 Plug 'easymotion/vim-easymotion'
@@ -22,7 +20,6 @@ Plug 'terryma/vim-expand-region'
 Plug 'voldikss/vim-floaterm'
   let g:floaterm_keymap_toggle = '<leader>ft'
 Plug 'thosakwe/vim-flutter', { 'for': 'dart' }
-Plug 'airblade/vim-gitgutter'
 Plug 'farmergreg/vim-lastplace'
 Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-projectionist'
@@ -34,7 +31,6 @@ Plug 'psliwka/vim-smoothie'
   let g:smoothie_speed_constant_factor = 30
   let g:smoothie_speed_linear_factor = 30
 Plug 'mhinz/vim-startify'
-Plug 'vim-test/vim-test'
 Plug 'tpope/vim-vinegar'
 Plug 'maxbrunsfeld/vim-yankstack'
 
