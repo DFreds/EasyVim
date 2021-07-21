@@ -1,1 +1,0 @@
-xmap <cr> <plug>(LiveEasyAlign)
