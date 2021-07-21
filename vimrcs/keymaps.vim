@@ -3,15 +3,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clear current search highlight by double tapping //
-nnoremap <silent> // :nohlsearch<cr>
 
-" Use ; to enter command mode instead of :
-nnoremap ; :
-vnoremap ; :
-
-" Disable Ex mode
-nnoremap Q <nop>
 
 " Quick way to move the current line above or below:
 " These mappings also take a count, so 2]e moves the current line 2 lines below.
@@ -48,39 +40,15 @@ vnoremap <silent> gv :call VisualSelection('gv', '')<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fast saving
-nnoremap <leader>w :update!<cr>
 
-" Fast saving and quitting
-nnoremap <leader>x :xit<cr>
-
-" Remap indenting
-nnoremap > >>_
-nnoremap < <<_
-" Re-select blocks after indenting in visual mode
-xnoremap > >gv|
-xnoremap < <gv
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<cr>
 
-" Copying to OS clipboard
-if has('unnamedplus')
-  noremap <leader>y "+y
-  noremap <leader>p "+p
-else
-  noremap <leader>y "*y
-  noremap <leader>p "*p
-endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Movement Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Smart way to move between windows
-noremap <C-j> <C-W>j
-noremap <C-k> <C-W>k
-noremap <C-h> <C-W>h
-noremap <C-l> <C-W>l
 
 " Make n always search forward and N backward
 nnoremap <expr> n 'Nn'[v:searchforward]
@@ -105,10 +73,6 @@ noremap <leader>bo :BufOnly<cr>
 " Go to last buffer
 noremap <silent> <leader>bl :b#<cr>
 
-" Easy way to navigate between buffers. Pairs well with vim-buftabline
-noremap L :bnext<cr>
-noremap H :bprevious<cr>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spelling Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -128,11 +92,6 @@ cnoremap <C-K> <C-U>
 
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Terminal Keymaps
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-tnoremap <c-o> <c-\><c-n><esc><cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions 

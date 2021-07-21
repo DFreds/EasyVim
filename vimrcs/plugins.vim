@@ -1,16 +1,10 @@
 call plug#begin('~/.vim_runtime/plugged')
 
-Plug 'mileszs/ack.vim'
 Plug 'dense-analysis/ale'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'rhysd/clever-f.vim'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'rhysd/git-messenger.vim'
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'yggdroot/indentline'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
@@ -21,18 +15,14 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'schickling/vim-bufonly'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-commentary'
 Plug 'will133/vim-dirdiff', {'on': 'DirDiff'}
-Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align', {'on': '<plug>(LiveEasyAlign)'}
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-expand-region'
 Plug 'voldikss/vim-floaterm'
   let g:floaterm_keymap_toggle = '<leader>ft'
 Plug 'thosakwe/vim-flutter', { 'for': 'dart' }
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'machakann/vim-highlightedyank'
 Plug 'farmergreg/vim-lastplace'
 Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-projectionist'
