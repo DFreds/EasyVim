@@ -20,6 +20,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'schickling/vim-bufonly'
 Plug 'ap/vim-buftabline'
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-commentary'
 Plug 'will133/vim-dirdiff', {'on': 'DirDiff'}
 Plug 'tpope/vim-dispatch'
